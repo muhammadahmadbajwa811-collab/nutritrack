@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Activity | NutriTrack</title>
+  <meta name="description" content="Track steps, log workouts and time a session.">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <script>
+    /* Apply the saved theme before the page paints (prevents a light flash) */
+    (function () {
+      try {
+        var t = localStorage.getItem('nt_theme');
+        if (!t) t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body data-page="activity" data-depth="1" data-protected="true">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <nav class="navbar container" aria-label="Main navigation">
+      <a class="brand" href="../index.html" aria-label="NutriTrack home">
+        <span class="brand-logo" aria-hidden="true">🔥</span><span>Nutri<b>Track</b></span>
+      </a>
+      <div class="nav-menu" id="navMenu">
+        <ul class="nav-links"><li data-auth="guest"><a href="../index.html" data-page="index">Home</a></li><li data-auth="guest"><a href="about.html" data-page="about">About</a></li><li data-auth="guest"><a href="services.html" data-page="services">Features</a></li><li data-auth="guest"><a href="foods.html" data-page="foods">Foods</a></li><li data-auth="guest"><a href="faq.html" data-page="faq">FAQ</a></li><li data-auth="guest"><a href="contact.html" data-page="contact">Contact</a></li><li data-auth="user"><a href="dashboard.html" data-page="dashboard">Dashboard</a></li><li data-auth="user"><a href="foods.html" data-page="foods">Foods</a></li><li data-auth="user"><a href="diary.html" data-page="diary">Diary</a></li><li data-auth="user"><a href="activity.html" data-page="activity">Activity</a></li><li data-auth="user"><a href="profile.html" data-page="profile">Profile</a></li></ul>
+        <div class="nav-actions">
+          <a class="btn btn-ghost btn-sm" data-auth="guest" href="login.html">Log in</a>
+          <a class="btn btn-primary btn-sm" data-auth="guest" href="register.html">Sign up</a>
+          <button class="btn btn-outline btn-sm" id="logoutBtn" data-auth="user" type="button">Log out</button>
+        </div>
+      </div>
+      <div class="nav-right">
+        <button class="icon-btn" id="themeToggle" type="button" aria-label="Switch to dark mode">🌙</button>
+        <button class="nav-toggle" type="button" aria-label="Open menu" aria-controls="navMenu" aria-expanded="false"><span></span><span></span><span></span></button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+
+    <section class="page-head"><div class="container">
+      <h1>Activity</h1>
+      <p>Steps count toward your daily goal. Workouts add to calories burned on the dashboard.</p>
+    </div></section>
+
+    <div class="page-body"><div class="container">
+      <div class="tabs" role="tablist" aria-label="Activity sections">
+        <button class="tab active" type="button" role="tab" aria-selected="true" data-tab="tabSteps">Steps</button>
+        <button class="tab" type="button" role="tab" aria-selected="false" data-tab="tabExercise">Workouts</button>
+      </div>
+
+      <div class="tab-panel active" id="tabSteps" role="tabpanel">
+        <div class="dash-grid">
+          <section class="panel" aria-labelledby="stTitle">
+            <h3 id="stTitle">Today's steps</h3>
+            <div class="calorie-panel">
+              <div class="ring" id="stepRing" style="--size:170px"><div class="ring-inner"><strong id="stepCount">0</strong><span id="stepGoalText"></span></div></div>
+              <div class="kpis">
+                <div class="kpi"><span>Distance</span><b><span id="stepKm">0</span> km</b></div>
+                <div class="kpi"><span>Calories</span><b><span id="stepKcal">0</span> kcal</b></div>
+                <div class="kpi"><span>Goal streak</span><b><span id="stepStreak">0</span> days</b></div>
+              </div>
+            </div>
+            <div class="row" style="margin-top:18px">
+              <button class="btn btn-outline btn-sm" type="button" data-steps="500">+500</button>
+              <button class="btn btn-outline btn-sm" type="button" data-steps="1000">+1,000</button>
+              <button class="btn btn-outline btn-sm" type="button" data-steps="2000">+2,000</button>
+              <button class="btn btn-ghost btn-sm" type="button" data-steps="-500">Undo 500</button>
+            </div>
+          </section>
+
+          <section class="panel" aria-labelledby="setTitle">
+            <h3 id="setTitle">Set today's total</h3>
+            <form id="exactForm" novalidate>
+              <div class="form-group"><label for="exactSteps">Steps from your phone or watch</label><input class="input" id="exactSteps" type="number" min="0" max="100000" placeholder="e.g. 7500"><span class="field-error"></span></div>
+              <button class="btn btn-primary" type="submit">Save steps</button>
+            </form>
+            <hr style="border:0;border-top:1px solid var(--border);margin:22px 0">
+            <h3>Live tracking (phones)</h3>
+            <p class="muted small" style="margin-bottom:12px">Uses your phone's motion sensor to count steps while this page is open. It is less accurate than a fitness watch, so manual entry is the reliable option.</p>
+            <button class="btn btn-outline" id="liveToggle" type="button">Start live tracking</button>
+            <p class="small muted" id="liveStatus" style="margin-top:10px" aria-live="polite">Live tracking is off.</p>
+          </section>
+
+          <section class="panel span-all" aria-labelledby="stepChartTitle">
+            <div class="panel-head"><h3 id="stepChartTitle">Steps, last 7 days</h3><span class="muted small">Green bars reached the goal</span></div>
+            <div class="chart-area">
+              <div class="chart" id="stepChart" role="img" aria-label="Bar chart of steps in the last seven days"></div>
+              <div class="chart-line" id="stepGoalLine"><span>Goal</span></div>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="tabExercise" role="tabpanel">
+        <div class="dash-grid">
+          <section class="panel" aria-labelledby="exTitle">
+            <h3 id="exTitle">Log a workout</h3>
+            <form id="exerciseForm" novalidate>
+              <div class="form-row">
+                <div class="form-group"><label for="exType">Activity</label><select class="select" id="exType"></select></div>
+                <div class="form-group"><label for="exMinutes">Minutes</label><input class="input" id="exMinutes" type="number" min="1" max="600" inputmode="numeric"><span class="field-error"></span></div>
+              </div>
+              <button class="btn btn-primary" type="submit">Log workout</button>
+            </form>
+          </section>
+
+          <section class="panel" aria-labelledby="swTitle">
+            <h3 id="swTitle">Workout timer</h3>
+            <div class="stopwatch" id="stopwatch" role="timer" aria-live="off">00:00:00</div>
+            <div class="row" style="justify-content:center">
+              <button class="btn btn-primary" id="watchToggle" type="button">Start</button>
+              <button class="btn btn-ghost" id="watchReset" type="button">Reset</button>
+              <button class="btn btn-outline" id="watchLog" type="button">Log session</button>
+            </div>
+            <p class="muted small" style="text-align:center;margin-top:12px">"Log session" saves the time using the activity chosen in the form.</p>
+          </section>
+
+          <section class="panel span-all" aria-labelledby="exListTitle">
+            <div class="panel-head"><h3 id="exListTitle">Today's workouts</h3><span class="muted small" id="exerciseTotal"></span></div>
+            <ul class="entry-list" id="exerciseList"></ul>
+          </section>
+        </div>
+      </div>
+    </div></div>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a class="brand" href="../index.html"><span class="brand-logo" aria-hidden="true">🔥</span><span>Nutri<b>Track</b></span></a>
+          <p>A calorie, steps and water tracker that keeps your data on your own device.</p>
+        </div>
+        <nav aria-label="Explore">
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="services.html">Features</a></li>
+            <li><a href="foods.html">Food database</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+          </ul>
+        </nav>
+        <nav aria-label="Account">
+          <h4>Account</h4>
+          <ul>
+            <li data-auth="guest"><a href="login.html">Log in</a></li>
+            <li data-auth="guest"><a href="register.html">Create account</a></li>
+            <li data-auth="user"><a href="dashboard.html">Dashboard</a></li>
+            <li data-auth="user"><a href="diary.html">Diary</a></li>
+            <li data-auth="user"><a href="profile.html">Profile</a></li>
+          </ul>
+        </nav>
+        <div>
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="mailto:hello@nutritrack.example">hello@nutritrack.example</a></li>
+            <li><a href="contact.html">Send a message</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; <span id="year">2026</span> NutriTrack. University web project.</span>
+        <span>Nutrition values are approximate and not medical advice.</span>
+      </div>
+    </div>
+  </footer>
+
+  <button class="scroll-top" id="scrollTop" type="button" aria-label="Scroll to top">↑</button>
+
+<script src="../js/data.js"></script>
+<script src="../js/storage.js"></script>
+<script src="../js/calc.js"></script>
+<script src="../js/app.js"></script>
+<script src="../js/activity.js"></script>
+</body>
+</html>

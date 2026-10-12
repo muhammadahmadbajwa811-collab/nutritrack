@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Calorie, steps and water tracker | NutriTrack</title>
+  <meta name="description" content="NutriTrack turns your meals, steps and water into one clear number: calories left today.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script>
+    /* Apply the saved theme before the page paints (prevents a light flash) */
+    (function () {
+      try {
+        var t = localStorage.getItem('nt_theme');
+        if (!t) t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body data-page="index" data-depth="0">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <nav class="navbar container" aria-label="Main navigation">
+      <a class="brand" href="index.html" aria-label="NutriTrack home">
+        <span class="brand-logo" aria-hidden="true">🔥</span><span>Nutri<b>Track</b></span>
+      </a>
+      <div class="nav-menu" id="navMenu">
+        <ul class="nav-links"><li data-auth="guest"><a href="index.html" data-page="index">Home</a></li><li data-auth="guest"><a href="pages/about.html" data-page="about">About</a></li><li data-auth="guest"><a href="pages/services.html" data-page="services">Features</a></li><li data-auth="guest"><a href="pages/foods.html" data-page="foods">Foods</a></li><li data-auth="guest"><a href="pages/faq.html" data-page="faq">FAQ</a></li><li data-auth="guest"><a href="pages/contact.html" data-page="contact">Contact</a></li><li data-auth="user"><a href="pages/dashboard.html" data-page="dashboard">Dashboard</a></li><li data-auth="user"><a href="pages/foods.html" data-page="foods">Foods</a></li><li data-auth="user"><a href="pages/diary.html" data-page="diary">Diary</a></li><li data-auth="user"><a href="pages/activity.html" data-page="activity">Activity</a></li><li data-auth="user"><a href="pages/profile.html" data-page="profile">Profile</a></li></ul>
+        <div class="nav-actions">
+          <a class="btn btn-ghost btn-sm" data-auth="guest" href="pages/login.html">Log in</a>
+          <a class="btn btn-primary btn-sm" data-auth="guest" href="pages/register.html">Sign up</a>
+          <button class="btn btn-outline btn-sm" id="logoutBtn" data-auth="user" type="button">Log out</button>
+        </div>
+      </div>
+      <div class="nav-right">
+        <button class="icon-btn" id="themeToggle" type="button" aria-label="Switch to dark mode">🌙</button>
+        <button class="nav-toggle" type="button" aria-label="Open menu" aria-controls="navMenu" aria-expanded="false"><span></span><span></span><span></span></button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+
+    <section class="hero" aria-labelledby="heroTitle">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <h1 id="heroTitle">Know what you eat. Know what you burn.</h1>
+          <p class="lead">NutriTrack turns your meals, steps and water into one clear number: how many calories you have left today.</p>
+          <div class="hero-cta">
+            <a class="btn btn-primary" data-auth="guest" href="pages/register.html">Create free account</a>
+            <a class="btn btn-primary" data-auth="user" href="pages/dashboard.html">Open dashboard</a>
+            <a class="btn btn-outline" href="pages/foods.html">Browse foods</a>
+          </div>
+          <ul class="hero-points">
+            <li>70 foods, including desi dishes like biryani and karahi</li>
+            <li>Steps, water and workouts in the same place</li>
+            <li>Works offline. Your data never leaves your browser.</li>
+          </ul>
+        </div>
+
+        <div class="plate" aria-labelledby="demoTitle">
+          <div class="plate-head">
+            <h2 id="demoTitle">Try it: build today's plate</h2>
+            <button id="demoReset" class="btn btn-ghost btn-sm" type="button">Reset</button>
+          </div>
+          <div class="plate-body">
+            <div class="ring" id="demoRing" style="--size:170px">
+              <div class="ring-inner"><strong id="demoLeft">2,000</strong><span id="demoLabel">kcal left</span></div>
+            </div>
+            <ul class="plate-log" id="demoLog" aria-live="polite"></ul>
+          </div>
+          <div class="chips" id="demoChips" aria-label="Foods to add"></div>
+          <p class="plate-note">Demo goal: 2,000 kcal. Your real goal is calculated from your body and activity level.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="counters" aria-label="NutriTrack at a glance">
+      <div class="container counters-grid">
+        <div class="counter"><strong data-count="70" data-count-foods data-suffix="">0</strong><span>foods in the database</span></div>
+        <div class="counter"><strong data-count="6">0</strong><span>daily trackers</span></div>
+        <div class="counter"><strong data-count="10000">0</strong><span>default daily step goal</span></div>
+        <div class="counter"><strong data-count="100" data-suffix="%">0</strong><span>of data stays on your device</span></div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="featTitle">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2 id="featTitle">Everything you need for a daily check-in</h2>
+          <p>No clutter. Just the numbers that help you stay on track.</p>
+        </div>
+        <div class="feature-list">
+          <article class="feature reveal"><span class="ico" aria-hidden="true">🎯</span><h3>A goal made for you</h3><p>Enter your age, height, weight and activity level. NutriTrack calculates a daily calorie goal for losing, keeping or gaining weight.</p></article>
+          <article class="feature reveal"><span class="ico" aria-hidden="true">🔎</span><h3>Searchable food database</h3><p>Search, filter by category and sort by calories or protein. Add your own foods when something is missing.</p></article>
+          <article class="feature reveal"><span class="ico" aria-hidden="true">📊</span><h3>Macros at a glance</h3><p>See protein, carbs and fat against your targets, plus a seven-day calorie chart with your goal line.</p></article>
+          <article class="feature reveal"><span class="ico" aria-hidden="true">🚶</span><h3>Step counter</h3><p>Track steps toward a daily goal, see distance and calories, and keep a streak going.</p></article>
+          <article class="feature reveal"><span class="ico" aria-hidden="true">💧</span><h3>Water and workouts</h3><p>Tap glasses of water, log exercise and time a session with the built-in stopwatch.</p></article>
+          <article class="feature reveal"><span class="ico" aria-hidden="true">🌙</span><h3>Light and dark mode</h3><p>Switch themes any time. NutriTrack remembers your choice on every page.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt" aria-labelledby="howTitle">
+      <div class="container split">
+        <div class="section-head" style="margin-bottom:0">
+          <h2 id="howTitle">Three steps to your first day</h2>
+          <p>It takes about two minutes to set up. After that, logging a meal is two taps.</p>
+        </div>
+        <ol class="steps">
+          <li><div><h3>Create your profile</h3><p>Tell us your body data and goal. Your calorie target appears instantly.</p></div></li>
+          <li><div><h3>Log what you eat</h3><p>Pick a food, choose the meal and the number of servings.</p></div></li>
+          <li><div><h3>Check your day</h3><p>The dashboard shows calories left, macros, water and steps in one view.</p></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="tipsTitle">
+      <div class="container">
+        <div class="section-head"><h2 id="tipsTitle">Small habits that help</h2></div>
+        <div class="slider" id="tipSlider" aria-roledescription="carousel" aria-label="Healthy habit tips">
+          <div class="slides">
+            <article class="slide"><span class="tip-emoji" aria-hidden="true">💧</span><h3>Drink water before meals</h3><p>A glass of water before eating can help you feel fuller, and it counts toward your daily water goal.</p></article>
+            <article class="slide"><span class="tip-emoji" aria-hidden="true">🥚</span><h3>Start the day with protein</h3><p>Eggs, yogurt or daal at breakfast tend to keep you satisfied longer than sugary options.</p></article>
+            <article class="slide"><span class="tip-emoji" aria-hidden="true">🚶</span><h3>Walk after you eat</h3><p>A ten-minute walk after a meal is an easy way to add steps without planning a workout.</p></article>
+            <article class="slide"><span class="tip-emoji" aria-hidden="true">🍽️</span><h3>Check the serving size</h3><p>Calories are listed per serving. Two servings means double the calories, so adjust the quantity when you log.</p></article>
+          </div>
+          <div class="slider-controls">
+            <button class="slider-btn slider-prev" type="button" aria-label="Previous tip">‹</button>
+            <div class="slider-dots row" style="gap:6px"></div>
+            <button class="slider-btn slider-next" type="button" aria-label="Next tip">›</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-band" aria-labelledby="ctaTitle">
+      <div class="container row-between">
+        <div><h2 id="ctaTitle">Ready to see your numbers?</h2><p>Create an account, or try the demo account with a week of sample data.</p></div>
+        <div class="row">
+          <a class="btn btn-white" data-auth="guest" href="pages/register.html">Create free account</a>
+          <a class="btn btn-white" data-auth="user" href="pages/dashboard.html">Go to dashboard</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a class="brand" href="index.html"><span class="brand-logo" aria-hidden="true">🔥</span><span>Nutri<b>Track</b></span></a>
+          <p>A calorie, steps and water tracker that keeps your data on your own device.</p>
+        </div>
+        <nav aria-label="Explore">
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="pages/services.html">Features</a></li>
+            <li><a href="pages/foods.html">Food database</a></li>
+            <li><a href="pages/faq.html">FAQ</a></li>
+          </ul>
+        </nav>
+        <nav aria-label="Account">
+          <h4>Account</h4>
+          <ul>
+            <li data-auth="guest"><a href="pages/login.html">Log in</a></li>
+            <li data-auth="guest"><a href="pages/register.html">Create account</a></li>
+            <li data-auth="user"><a href="pages/dashboard.html">Dashboard</a></li>
+            <li data-auth="user"><a href="pages/diary.html">Diary</a></li>
+            <li data-auth="user"><a href="pages/profile.html">Profile</a></li>
+          </ul>
+        </nav>
+        <div>
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="mailto:hello@nutritrack.example">hello@nutritrack.example</a></li>
+            <li><a href="pages/contact.html">Send a message</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; <span id="year">2026</span> NutriTrack. University web project.</span>
+        <span>Nutrition values are approximate and not medical advice.</span>
+      </div>
+    </div>
+  </footer>
+
+  <button class="scroll-top" id="scrollTop" type="button" aria-label="Scroll to top">↑</button>
+
+<script src="js/data.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/calc.js"></script>
+<script src="js/app.js"></script>
+<script src="js/home.js"></script>
+</body>
+</html>

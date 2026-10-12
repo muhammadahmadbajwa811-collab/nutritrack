@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Profile | NutriTrack</title>
+  <meta name="description" content="Edit your details, goals and appearance.">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <script>
+    /* Apply the saved theme before the page paints (prevents a light flash) */
+    (function () {
+      try {
+        var t = localStorage.getItem('nt_theme');
+        if (!t) t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body data-page="profile" data-depth="1" data-protected="true">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <nav class="navbar container" aria-label="Main navigation">
+      <a class="brand" href="../index.html" aria-label="NutriTrack home">
+        <span class="brand-logo" aria-hidden="true">🔥</span><span>Nutri<b>Track</b></span>
+      </a>
+      <div class="nav-menu" id="navMenu">
+        <ul class="nav-links"><li data-auth="guest"><a href="../index.html" data-page="index">Home</a></li><li data-auth="guest"><a href="about.html" data-page="about">About</a></li><li data-auth="guest"><a href="services.html" data-page="services">Features</a></li><li data-auth="guest"><a href="foods.html" data-page="foods">Foods</a></li><li data-auth="guest"><a href="faq.html" data-page="faq">FAQ</a></li><li data-auth="guest"><a href="contact.html" data-page="contact">Contact</a></li><li data-auth="user"><a href="dashboard.html" data-page="dashboard">Dashboard</a></li><li data-auth="user"><a href="foods.html" data-page="foods">Foods</a></li><li data-auth="user"><a href="diary.html" data-page="diary">Diary</a></li><li data-auth="user"><a href="activity.html" data-page="activity">Activity</a></li><li data-auth="user"><a href="profile.html" data-page="profile">Profile</a></li></ul>
+        <div class="nav-actions">
+          <a class="btn btn-ghost btn-sm" data-auth="guest" href="login.html">Log in</a>
+          <a class="btn btn-primary btn-sm" data-auth="guest" href="register.html">Sign up</a>
+          <button class="btn btn-outline btn-sm" id="logoutBtn" data-auth="user" type="button">Log out</button>
+        </div>
+      </div>
+      <div class="nav-right">
+        <button class="icon-btn" id="themeToggle" type="button" aria-label="Switch to dark mode">🌙</button>
+        <button class="nav-toggle" type="button" aria-label="Open menu" aria-controls="navMenu" aria-expanded="false"><span></span><span></span><span></span></button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+
+    <section class="page-head"><div class="container">
+      <h1>Profile and goals</h1>
+      <p>Signed in as <b id="profileEmail"></b></p>
+    </div></section>
+
+    <div class="page-body"><div class="container profile-grid">
+      <section class="panel" aria-labelledby="pfTitle">
+        <h3 id="pfTitle">Your details</h3>
+        <form id="profileForm" novalidate>
+          <div class="form-group"><label for="pName">Full name</label><input class="input" id="pName" name="name" type="text"><span class="field-error"></span></div>
+          <div class="form-row">
+            <div class="form-group"><label for="pAge">Age</label><input class="input" id="pAge" name="age" type="number"><span class="field-error"></span></div>
+            <div class="form-group"><label for="pGender">Gender</label><select class="select" id="pGender" name="gender"><option value="male">Male</option><option value="female">Female</option></select></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label for="pHeight">Height (cm)</label><input class="input" id="pHeight" name="height" type="number"><span class="field-error"></span></div>
+            <div class="form-group"><label for="pWeight">Weight (kg)</label><input class="input" id="pWeight" name="weight" type="number" step="0.1"><span class="field-error"></span></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label for="pActivity">Activity level</label><select class="select" id="pActivity" name="activity"><option value="sedentary">Sedentary</option><option value="light">Light (1-3 days/week)</option><option value="moderate">Moderate (3-5 days/week)</option><option value="active">Active (6-7 days/week)</option></select></div>
+            <div class="form-group"><label for="pGoal">Goal</label><select class="select" id="pGoal" name="goal"><option value="lose">Lose weight</option><option value="maintain">Maintain weight</option><option value="gain">Gain weight</option></select></div>
+          </div>
+          <div class="form-row form-row-3">
+            <div class="form-group"><label for="pCal">Calorie goal (kcal)</label><input class="input" id="pCal" name="calorieGoal" type="number"><span class="field-error"></span></div>
+            <div class="form-group"><label for="pSteps">Step goal</label><input class="input" id="pSteps" name="stepGoal" type="number"><span class="field-error"></span></div>
+            <div class="form-group"><label for="pWater">Water (glasses)</label><input class="input" id="pWater" name="waterGoal" type="number"><span class="field-error"></span></div>
+          </div>
+          <div class="row">
+            <button class="btn btn-primary" type="submit">Save changes</button>
+            <button class="btn btn-outline" id="recalcGoal" type="button">Recalculate calorie goal</button>
+          </div>
+        </form>
+      </section>
+
+      <div class="stack">
+        <section class="panel" aria-labelledby="bmiTitle">
+          <h3 id="bmiTitle">Body mass index</h3>
+          <div class="row"><span class="big-number" id="bmiValue">0</span><b id="bmiLabel"></b></div>
+          <div class="bmi-scale" role="img" aria-label="BMI scale from 15 to 40"><span class="bmi-marker" id="bmiMarker"></span></div>
+          <div class="bmi-ticks"><span>15</span><span>18.5</span><span>25</span><span>30</span><span>40</span></div>
+          <p class="muted small" style="margin-top:14px">Resting calories (BMR): <b id="bmrValue">0</b> kcal. Suggested goal from your body data: <b id="suggestedGoal">0</b> kcal.</p>
+        </section>
+
+        <section class="panel" aria-labelledby="statsTitle">
+          <h3 id="statsTitle">Your tracking</h3>
+          <div class="stat-tiles">
+            <div class="result-box"><strong id="statDays">0</strong><span>days logged</span></div>
+            <div class="result-box"><strong id="statFoods">0</strong><span>foods logged</span></div>
+            <div class="result-box"><strong id="statFavs">0</strong><span>favorites</span></div>
+            <div class="result-box"><strong id="statCustom">0</strong><span>custom foods</span></div>
+          </div>
+        </section>
+
+        <section class="panel" aria-labelledby="appearTitle">
+          <h3 id="appearTitle">Appearance</h3>
+          <div class="form-group" style="margin:0"><label for="themeChoice">Theme</label>
+            <select class="select" id="themeChoice"><option value="light">Light</option><option value="dark">Dark</option></select></div>
+        </section>
+
+        <section class="panel danger-zone" aria-labelledby="dataTitle">
+          <h3 id="dataTitle">Your data</h3>
+          <div class="row">
+            <button class="btn btn-outline btn-sm" id="exportData" type="button">Download my data</button>
+            <button class="btn btn-ghost btn-sm" id="resetData" type="button">Reset tracking data</button>
+            <button class="btn btn-ghost btn-sm" id="deleteAccount" type="button">Delete account</button>
+          </div>
+        </section>
+      </div>
+    </div></div>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a class="brand" href="../index.html"><span class="brand-logo" aria-hidden="true">🔥</span><span>Nutri<b>Track</b></span></a>
+          <p>A calorie, steps and water tracker that keeps your data on your own device.</p>
+        </div>
+        <nav aria-label="Explore">
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="services.html">Features</a></li>
+            <li><a href="foods.html">Food database</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+          </ul>
+        </nav>
+        <nav aria-label="Account">
+          <h4>Account</h4>
+          <ul>
+            <li data-auth="guest"><a href="login.html">Log in</a></li>
+            <li data-auth="guest"><a href="register.html">Create account</a></li>
+            <li data-auth="user"><a href="dashboard.html">Dashboard</a></li>
+            <li data-auth="user"><a href="diary.html">Diary</a></li>
+            <li data-auth="user"><a href="profile.html">Profile</a></li>
+          </ul>
+        </nav>
+        <div>
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="mailto:hello@nutritrack.example">hello@nutritrack.example</a></li>
+            <li><a href="contact.html">Send a message</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; <span id="year">2026</span> NutriTrack. University web project.</span>
+        <span>Nutrition values are approximate and not medical advice.</span>
+      </div>
+    </div>
+  </footer>
+
+  <button class="scroll-top" id="scrollTop" type="button" aria-label="Scroll to top">↑</button>
+
+<script src="../js/data.js"></script>
+<script src="../js/storage.js"></script>
+<script src="../js/calc.js"></script>
+<script src="../js/app.js"></script>
+<script src="../js/profile.js"></script>
+</body>
+</html>
