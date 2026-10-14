@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">NutriTrack</string>
+    <string name="app_tagline">Smart Calorie &amp; Nutrition Tracker</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_diary">Diary</string>
+    <string name="nav_activity">Activity</string>
+    <string name="nav_progress">Progress</string>
+    <string name="nav_settings">Settings</string>
+    <string name="nav_onboarding">Onboarding</string>
+</resources>
