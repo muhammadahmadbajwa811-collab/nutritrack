@@ -43,3 +43,54 @@ val MacroFatLight = Color(0xFF1F8A70)
 val MacroFatDark = Color(0xFF3CC4A0)
 val WaterTrackerLight = Color(0xFF2F9BE0)
 val WaterTrackerDark = Color(0xFF6CBBF2)
+
+data class NutriTrackColors(
+    val protein: Color,
+    val carbs: Color,
+    val fat: Color,
+    val water: Color,
+    val success: Color,
+    val warning: Color,
+    val info: Color,
+    val brandRed: Color
+)
+
+val LocalNutriTrackColors = androidx.compose.runtime.staticCompositionLocalOf {
+    NutriTrackColors(
+        protein = MacroProteinLight,
+        carbs = MacroCarbsLight,
+        fat = MacroFatLight,
+        water = WaterTrackerLight,
+        success = SuccessLight,
+        warning = WarningLight,
+        info = InfoLight,
+        brandRed = PrimaryLight
+    )
+}
+
+val NutriTrackColorsLight = NutriTrackColors(
+    protein = MacroProteinLight,
+    carbs = MacroCarbsLight,
+    fat = MacroFatLight,
+    water = WaterTrackerLight,
+    success = SuccessLight,
+    warning = WarningLight,
+    info = InfoLight,
+    brandRed = PrimaryLight
+)
+
+val NutriTrackColorsDark = NutriTrackColors(
+    protein = MacroProteinDark,
+    carbs = MacroCarbsDark,
+    fat = MacroFatDark,
+    water = WaterTrackerDark,
+    success = SuccessDark,
+    warning = WarningDark,
+    info = InfoDark,
+    brandRed = PrimaryDark
+)
+
+val androidx.compose.material3.MaterialTheme.nutriTrackColors: NutriTrackColors
+    @androidx.compose.runtime.Composable
+    get() = LocalNutriTrackColors.current
+

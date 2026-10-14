@@ -38,11 +38,16 @@ fun NutriTrackTheme(
     content: @Composable () -> Unit
 ) {
     val colorScheme = if (darkTheme) DarkColorScheme else LightColorScheme
+    val nutriColors = if (darkTheme) NutriTrackColorsDark else NutriTrackColorsLight
 
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = Typography,
-        shapes = Shapes,
-        content = content
-    )
+    androidx.compose.runtime.CompositionLocalProvider(
+        LocalNutriTrackColors provides nutriColors
+    ) {
+        MaterialTheme(
+            colorScheme = colorScheme,
+            typography = Typography,
+            shapes = Shapes,
+            content = content
+        )
+    }
 }

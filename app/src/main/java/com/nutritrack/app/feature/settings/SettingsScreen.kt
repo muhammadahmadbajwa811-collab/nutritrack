@@ -14,18 +14,28 @@ import com.nutritrack.app.R
 
 @Composable
 fun SettingsScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onNavigateToGallery: () -> Unit = {}
 ) {
-    Box(
+    androidx.compose.foundation.layout.Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(16.dp),
-        contentAlignment = Alignment.Center
+            .padding(24.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
     ) {
         Text(
             text = stringResource(id = R.string.nav_settings),
             style = MaterialTheme.typography.headlineMedium,
             color = MaterialTheme.colorScheme.onBackground
+        )
+
+        androidx.compose.foundation.layout.Spacer(modifier = Modifier.padding(16.dp))
+
+        com.nutritrack.app.designsystem.components.NtButton(
+            text = "Open Component Gallery",
+            onClick = onNavigateToGallery,
+            isFullWidth = false
         )
     }
 }
