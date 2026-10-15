@@ -65,6 +65,15 @@ android {
     }
 }
 
+tasks.withType<JavaCompile>().configureEach {
+    exclude("**/byRounds/**")
+    doFirst {
+        delete(fileTree(layout.buildDirectory.dir("generated/ksp")) {
+            include("**/byRounds/**")
+        })
+    }
+}
+
 dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.core.splashscreen)
@@ -109,6 +118,7 @@ dependencies {
     testImplementation(libs.mockk)
     testImplementation(libs.turbine)
     testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation("org.json:json:20240303")
 
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.test.espresso.core)

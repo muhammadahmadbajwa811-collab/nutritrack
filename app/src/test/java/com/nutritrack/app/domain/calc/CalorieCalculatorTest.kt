@@ -75,7 +75,8 @@ class CalorieCalculatorTest {
 
     @Test
     fun calculateDailyWaterGoalMl_recommends35mlPerKg() {
+        // 70.0 kg * 35 ml = 2,450 ml -> rounded to nearest 250 ml = 2,500 ml
         val waterMl = CalorieCalculator.calculateDailyWaterGoalMl(70.0)
-        assertEquals(2450, waterMl)
+        assertEquals(2500, waterMl)
     }
 }

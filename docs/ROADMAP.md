@@ -69,7 +69,7 @@ gantt
 - Seed database loader: populates `assets/foods_seed.json` (300+ foods, 70+ desi items) on first launch.
 - DataStore preferences for theme, units, reduce motion, reminder settings.
 
-### Phase 3: Onboarding & Profile Setup Wizard
+### Phase 3: Onboarding & Profile Setup Wizard (Completed)
 - Android 12+ SplashScreen API.
 - 3-slide welcome carousel ("Log fast", "See your day", "Stay private").
 - Health disclaimer screen with mandatory agreement.

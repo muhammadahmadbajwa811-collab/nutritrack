@@ -93,7 +93,13 @@ fun NutriTrackNavHost(
                 )
             }
             composable(Destinations.ONBOARDING) {
-                OnboardingScreen()
+                OnboardingScreen(
+                    onOnboardingFinished = {
+                        navController.navigate(Destinations.HOME) {
+                            popUpTo(Destinations.ONBOARDING) { inclusive = true }
+                        }
+                    }
+                )
             }
             composable(Destinations.GALLERY) {
                 ComponentGalleryScreen(
